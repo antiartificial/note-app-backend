@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Note;
+use App\Models\Note;
 use App\Http\Resources\Note as NoteResource;
 use Illuminate\Support\Facades\Log;
 
