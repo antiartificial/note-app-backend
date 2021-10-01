@@ -30,21 +30,94 @@ class Notes extends Repository
 
     public function store($data): Repository
     {
-        // todo
+        try {
+            $note = Note::create([
+                'title' => $data['title'],
+                'description' => $data['description'],
+            ]);
+            $singleItem = new NoteResource($note);
+        } catch (\Exception $e) {
+            Log::error(
+                'Something went wrong while getting the notes from the database',
+                [
+                    'message' => $e->getMessage()
+                ]
+            );
+            $error = true;
+        }
+
+        return (new Repository())
+            ->setError($error ?? false)
+            ->setItems($singleItem ?? []);
     }
 
     public function show($id): Repository
     {
-        // todo
+        try {
+            $note = Note::find($id);
+            $singleItem = new NoteResource($note);
+        } catch (\Exception $e) {
+            Log::error(
+                'Something went wrong while getting the notes from the database',
+                [
+                    'message' => $e->getMessage()
+                ]
+            );
+            $error = true;
+        }
+
+        return (new Repository())
+            ->setError($error ?? false)
+            ->setItems($singleItem ?? []);
     }
 
     public function update($id, $data): Repository
     {
-        // todo
+        try {
+            $note =
+                $this
+                    ->show($id)
+                    ->getItems();
+
+            $note->title = $data['title'];
+            $note->description = $data['description'];
+            $note->save();
+
+            $singleItem = new NoteResource($note);
+        } catch (\Exception $e) {
+            Log::error(
+                'Something went wrong while updating the note in the database',
+                [
+                    'message' => $e->getMessage()
+                ]
+            );
+            $error = true;
+        }
+
+        return (new Repository())
+            ->setError($error ?? false)
+            ->setItems($singleItem ?? []);
     }
 
     public function delete($id): Repository
     {
-        // todo
+        try {
+            $note =
+                $this
+                    ->show($id)
+                    ->getItems();
+            $note->delete();
+        } catch (\Exception $e) {
+            Log::error(
+                'Something went wrong while deleting the note from the database',
+                [
+                    'message' => $e->getMessage()
+                ]
+            );
+            $error = true;
+        }
+
+        return (new Repository())
+            ->setError($error ?? false);
     }
 }
