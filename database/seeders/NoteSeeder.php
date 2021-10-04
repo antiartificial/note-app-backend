@@ -3,18 +3,17 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Note;
 
-class DatabaseSeeder extends Seeder
+class NoteSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        $this->call([
-            NoteSeeder::class
-        ]);
+        Note::factory()->count(10)->create();
     }
 }

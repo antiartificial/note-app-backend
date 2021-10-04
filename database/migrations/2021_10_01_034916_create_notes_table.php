@@ -15,8 +15,8 @@ class CreateNotesTable extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable(false)->default('My Note Title');
-            $table->longText('description')->default('My fabulous note content begins here.');
+            $table->string('title')->nullable(false);
+            $table->longText('description');
             $table->timestamps();
             $table->softDeletes();
         });
