@@ -18,7 +18,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('notes')->group(function () {
+Route::prefix('notes')
+    ->namespace('App\Http\Controllers')
+    ->group(function () {
     Route::get('/', 'NoteController@index')->name('notes');
     Route::post('/', 'NoteController@store')->name('notes.store');
     Route::get('/{id}', 'NoteController@show')->name('notes.show');
