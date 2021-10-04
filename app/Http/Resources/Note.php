@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
 
 class Note extends JsonResource
 {
@@ -18,7 +19,7 @@ class Note extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'date' => $this->timestamp,
+            'date' => carbon::createFromTimestamp(strtotime($this->created_at), 'America/Los_Angeles')->format('H:ia Y/m/d')
         ];
     }
 }
