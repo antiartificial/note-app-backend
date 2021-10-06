@@ -19,6 +19,7 @@ class Note extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
+            'tags' => $this->tags,
             'date' => carbon::createFromTimestamp(strtotime($this->created_at), 'America/Los_Angeles')->format('H:ia Y/m/d')
         ];
     }

@@ -11,5 +11,10 @@ class Note extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['title', 'description'];
+    protected $fillable = ['title', 'description', 'tags'];
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'note_tag');
+    }
 }

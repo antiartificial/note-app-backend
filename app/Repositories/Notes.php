@@ -11,7 +11,8 @@ class Notes extends Repository
     public function all(): Repository
     {
         try {
-            $notes = Note::all();
+            // this could be by created_at
+            $notes = Note::with('tags')->orderBy('id','desc')->get();
             $notesList = NoteResource::collection($notes);
         } catch(\Exception $e) {
             Log::error(
@@ -35,6 +36,10 @@ class Notes extends Repository
                 'title' => $data['title'],
                 'description' => $data['description'],
             ]);
+            // only attempt sync if there's data
+            if(isset($data['tags']) && !empty($data['tags'])) {
+                $note->tags()->sync((array)$data['tags'], false);
+            }
             $singleItem = new NoteResource($note);
         } catch (\Exception $e) {
             Log::error(
@@ -82,6 +87,8 @@ class Notes extends Repository
             $note->title = $data['title'];
             $note->description = $data['description'];
             $note->save();
+
+            dd($note);
 
             $singleItem = new NoteResource($note);
         } catch (\Exception $e) {
