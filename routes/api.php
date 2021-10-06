@@ -27,3 +27,13 @@ Route::prefix('notes')
     Route::put('/{id}', 'NoteController@update')->name('notes.update');
     Route::delete('/{id}', 'NoteController@delete')->name('notes.delete');
 });
+
+Route::prefix('tags')
+    ->namespace('App\Http\Controllers')
+    ->group(function () {
+    Route::get('/', 'TagController@index')->name('tags');
+    Route::post('/', 'TagController@store')->name('tags.store');
+    Route::get('/{id}', 'TagController@show')->name('tags.show');
+    Route::put('/{id}', 'TagController@update')->name('tags.update');
+    Route::delete('/{id}', 'TagController@delete')->name('tags.delete');
+});
