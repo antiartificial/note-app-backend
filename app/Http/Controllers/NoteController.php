@@ -58,6 +58,7 @@ class NoteController extends Controller
 
     public function update($id, Request $request)
     {
+        //dd($id, $request);
         $noteUpdate =
             $this
                 ->notesRepository
